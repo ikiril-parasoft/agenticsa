@@ -62,6 +62,7 @@ jobs:
 
         BRANCH_CREATED=false
         NO_VIOLATIONS=false
+        FAIL_PR=false
 
         # Ensure we are in a git repo (Codex safety requirement unless you bypass explicitly).
         git rev-parse --is-inside-work-tree >/dev/null  2>&1 || { echo "Not inside a git repository. Exiting."; exit 1; }
@@ -111,6 +112,10 @@ jobs:
             echo "No violations found." >&2
             NO_VIOLATIONS=true
             break
+          else
+            echo "Violations detected in pass $pass. See $log_file for details." >&2
+            # The pull request shall fail if any violations are detected. 
+            FAIL_PR=true
           fi
 
           echo "Violations detected; invoking Codex..." >&2
@@ -213,17 +218,26 @@ jobs:
         
         # In case we exited the loop because no violations remain
         if [[ "$NO_VIOLATIONS" == true ]]; then
-          echo "No violations detected; exiting cleanly." >&2
-          exit 0
+          if [[ "$FAIL_PR" == true ]]; then
+            echo "Failed pull request. Violations were detected in earlier passes but all have been fixed now."
+            echo "AI proposed fixes can be found in the branch $FIX_BRANCH and PR $FIX_PR_URL"
+            exit 1
+          else
+            echo "No violations detected; exiting cleanly."
+            exit 0
+          fi 
         fi
 
         # Final analysis to check if violations remain when loop exited due to max passes
         echo "Max passes ($MAX_PASSES) reached; performing final analysis check." >&2
         if run_analysis "$log_file"; then
-          echo "All violations fixed after $pass passes." >&2
-          exit 0
+          echo "Failed pull request. Violations were detected in earlier passes but all have been fixed now."
+          echo "AI proposed fixes can be found in the branch $FIX_BRANCH and PR $FIX_PR_URL"
+          exit 1
         else
-          echo "Violations still present after pass $pass." >&2
+          echo "Failed pull request. Violations were detected in earlier passes."
+          echo "AI proposed fixes can be found in the branch $FIX_BRANCH and PR $FIX_PR_URL"
+          echo "Violations still present after pass $pass."
           exit 1
         fi
 
