@@ -1,0 +1,11 @@
+{
+     "image": "cpptest:demo",
+     "runArgs": [ "--rm" ],
+     "customizations": {
+         "vscode": {
+             "extensions": [
+                 "parasoft.vscode-cpptest"
+             ]
+         }
+     }
+}
