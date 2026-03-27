@@ -7,6 +7,7 @@ on:
 
 env:
   BUILD_TYPE: Release
+  CPPTEST_HOME: /Users/ikiril/parasoft/cpptest_standard_2025_2
 
 jobs:
   build_with_misra:
