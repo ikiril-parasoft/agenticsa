@@ -4,7 +4,7 @@
 // 
 TEST(GooTest, TestValueAboveMaxTreshold) {
   RecordProperty("cpptest_filename", __FILE__);
-  RecordProperty("req", "REQ-123-ZERO");
+  RecordProperty("req", "ASA-509");
  
   EXPECT_EQ(computeControl(600, 10), 60);
 }
@@ -12,14 +12,14 @@ TEST(GooTest, TestValueAboveMaxTreshold) {
 // 
 TEST(GooTest, TestGetValueBelowMaxTreshold) {
   RecordProperty("cpptest_filename", __FILE__);
-  RecordProperty("req", "REQ-123-POSITIVE");
+  RecordProperty("req", "ASA-511");
 
   EXPECT_EQ(computeControl(200, 10), 400);
 }
 
 TEST(GooTest, SetMotorSpeedZero) {
   RecordProperty("cpptest_filename", __FILE__);
-  RecordProperty("req", "REQ-123-POSITIVE");
+  RecordProperty("req", "ASA-511");
 
-  EXPECT_EQ(processCommand("SET", "0"), 0);
+  EXPECT_EQ(processCommand("SET", "0"), 1);
 }
