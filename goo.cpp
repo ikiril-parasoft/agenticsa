@@ -26,7 +26,7 @@ int computeControl(const int sensor, const int divisor)
     const int value = 0;
 
     if (sensor > SENSOR_HIGH_THRESHOLD) {
-        return sensor / divisor;
+        return (divisor != 0) ? (sensor / divisor) : value;
     } else if (sensor > SENSOR_LOW_THRESHOLD) {
         return sensor * MULTIPLIER;
     } else {
