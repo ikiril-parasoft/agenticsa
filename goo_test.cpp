@@ -2,7 +2,7 @@
 #include "goo.h"
 
 // Match the implementation signature in goo.cpp for direct testing.
-extern int processor(char* cmd, char* arg);
+int processor(const char* cmd, const char* arg);
 
 // 
 TEST(GooTest, TestValueAboveMaxTreshold) {
