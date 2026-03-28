@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stdlib.h>  
 #include <string.h>  
+#include <errno.h>
+#include <limits.h>
 
 volatile uint16_t SENSOR_DATA = 0;
 volatile uint16_t MOTOR_SPEED = 0;
@@ -26,6 +28,9 @@ int computeControl(int sensor, int divisor)
     int value = 0;
 
     if (sensor > SENSOR_HIGH_THRESHOLD) {
+        if (divisor == 0) {
+            return DEFAULT_VALUE;
+        }
         return sensor / divisor;
     } else if (sensor > SENSOR_LOW_THRESHOLD) {
         return sensor * MULTIPLIER;
@@ -38,9 +43,20 @@ int computeControl(int sensor, int divisor)
 int processCommand(const char* cmd, const char* arg)
 {
     if (strcmp(cmd, "SET") == 0) {
-        int val = atoi(arg);
+        if ((arg == NULL) || (*arg == '\0')) {
+            return -1;
+        }
+
+        char* endptr = NULL;
+        errno = 0;
+        long val = strtol(arg, &endptr, 10);
+
+        if ((errno != 0) || (endptr == arg) || (*endptr != '\0') || (val < 0L) || (val > UINT16_MAX)) {
+            return -1;
+        }
+
         setMotorSpeed((uint16_t)val);
-        return val;
+        return (int)val;
     }
 
     if (strcmp(cmd, "READ") == 0) {
