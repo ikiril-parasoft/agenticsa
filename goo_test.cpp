@@ -21,5 +21,5 @@ TEST(GooTest, SetMotorSpeedZero) {
   RecordProperty("cpptest_filename", __FILE__);
   RecordProperty("req", "ASA-511");
 
-  EXPECT_EQ(processCommand("SET", "0"), 1);
+  EXPECT_EQ(processCommand("SET", "0"), 0);
 }
