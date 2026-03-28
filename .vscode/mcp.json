@@ -2,14 +2,14 @@
 	"servers": {
 		"cpptest-mcp": {
 			"type": "stdio",
-			"command": "/home/mirek/parasoft/cpptest_ct_2025_2/cpptestct",
+			"command": "/opt/parasoft/cpptest-ct/cpptestct",
 			"args": [
 				"mcp"
 			]
 		},
 		"cpptest-sa-mcp": {
 			"type": "stdio",
-			"command": "/home/mirek/parasoft/cpptest_standard_2025_2/integration/mcp/cpptestmcp",
+			"command": "/opt/parasoft/cpptest/integration/mcp/cpptestmcp",
 			"args": []
 		}
 	},

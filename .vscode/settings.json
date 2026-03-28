@@ -1,4 +1,4 @@
 {
-    "cpptest.testConfiguration": "MISRA C++ and CERT.properties",
-    "cpptest.commandLinePattern": "cpptestcli ${stopFile} ${compilerConfig} ${testConfig} ${reportDir} ${selectedFiles} -exclude */.build/* -exclude */*_test.* -module . -input .build/compile_commands.json"
+    "cpptest.testConfiguration": "/workspaces/agenticsa/MISRA C++ and CERT.properties",
+    "cpptest.commandLinePattern": "/opt/parasoft/cpptest/cpptestcli ${stopFile} ${compilerConfig} ${testConfig} ${reportDir} ${selectedFiles} -exclude */.build/* -exclude */*_test.* -module . -input .build/compile_commands.json"
 }

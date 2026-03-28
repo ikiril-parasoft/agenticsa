@@ -3,7 +3,7 @@
 # ============================================================
 
 # Root directory Codex is allowed to access
-workspace = "/home/mirek/sandbox/agenticsa"
+workspace = "/workspaces/agenticsa"
 
 # Whether Codex may execute shell commands
 allow_shell = true
@@ -28,7 +28,7 @@ timeout_ms = 30000
 name = "cpptest-sa"
 description = "Static analysis data"
 transport = "stdio"
-command = "/home/mirek/parasoft/cpptest_standard_2025_2/integration/mcp/cpptestmcp"
+command = "/opt/parasoft/cpptest/integration/mcp/cpptestmcp"
 args = []
 
 # ============================================================
