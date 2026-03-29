@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.18)
 project(CovGoogleTest)
 
+# Setup policy to prevent warning message about CMP0135 
+# when using FetchContent with a URL that is not a git repository
+cmake_policy(SET CMP0135 NEW)
+project(YourProjectName)
+
 # starting from v. 1.17.0 GoogleTest requires at least C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
