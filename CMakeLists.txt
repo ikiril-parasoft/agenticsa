@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.18)
 project(CovGoogleTest)
 
+cmake_policy(SET CMP0135 NEW)
+project(agenticsa)
+
 # starting from v. 1.17.0 GoogleTest requires at least C++17
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
