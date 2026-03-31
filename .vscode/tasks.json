@@ -22,6 +22,12 @@
             "group": "build"
         },
         {
+            "label": "Publish coverage and test result to DTP",
+            "type": "shell",
+            "command": "bash -c 'cd .build;make cpptestcov-dtp'",
+            "group": "build"
+        },
+        {
             "type": "cmake",
             "label": "CMake: configure",
             "command": "configure",
