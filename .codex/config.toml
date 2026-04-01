@@ -1,3 +1,6 @@
+[projects."/home/parasoft"]
+trust_level = "trusted"
+
 [projects."/home/parasoft/actions-runner/_work/agenticsa/agenticsa"]
 trust_level = "trusted"
 
