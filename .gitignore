@@ -4,3 +4,4 @@ build/*
 .cpptest/
 reports/*
 *_commit_comment.txt
+.DS_Store

@@ -141,7 +141,7 @@ jobs:
 
             prompt_file="$(mktemp)"
             {
-              echo "Please pull the C/C++test violations using the dedicated mcp tool."
+              echo "Please pull the C/C++test violations from the reports/report.xml using the dedicated mcp tool."
               echo "Please analyze only the violations of the following rule: ${rule}"
               echo "Use available mcp tools to understand violated static analysis rule."
               echo "Your task is to edit the files with problems and fix all violations of the ${rule} reported by C/C++test."
@@ -158,7 +158,7 @@ jobs:
 
             # Run Codex with write access to the workspace.
             # --full-auto is a convenience preset; you can use --sandbox workspace-write explicitly.
-            codex exec --full-auto --sandbox workspace-write "$(cat "$prompt_file")"
+            codex exec --sandbox danger-full-access "$(cat "$prompt_file")"
 
             # If AI made no changes, skip
             if ! git diff --quiet || ! git diff --cached --quiet; then
