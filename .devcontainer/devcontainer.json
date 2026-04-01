@@ -1,5 +1,5 @@
 {
-    "image": "cpptest:demo",
+    "image": "cpptest_image",
     "runArgs": [ "--rm" ],
     "customizations": {
         "vscode": {
