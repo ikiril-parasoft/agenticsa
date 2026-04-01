@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>  
 #include <string.h>  
+#include <string>
 
 volatile uint16_t SENSOR_DATA = 0;
 volatile uint16_t MOTOR_SPEED = 0;
@@ -23,7 +24,7 @@ void setMotorSpeed(uint16_t speed)
 
 int computeControl(int sensor, int divisor)
 {
-    int value = 0;
+    const int value = 0;
 
     if (sensor > SENSOR_HIGH_THRESHOLD) {
         return sensor / divisor;
@@ -38,7 +39,7 @@ int computeControl(int sensor, int divisor)
 int processCommand(const char* cmd, const char* arg)
 {
     if (strcmp(cmd, "SET") == 0) {
-        int val = atoi(arg);
+        const int val = std::stoi(arg);
         setMotorSpeed((uint16_t)val);
         return val;
     }
@@ -51,7 +52,7 @@ int processCommand(const char* cmd, const char* arg)
 
 int processor(char* cmd, char* arg)
 {
-    uint16_t sensor = readSensor();
-    int control = computeControl(sensor, 0); 
+    const uint16_t sensor = readSensor();
+    const int control = computeControl(sensor, 0); 
     return processCommand(cmd, arg) + control;
 }
