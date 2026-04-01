@@ -1,8 +1,2 @@
-[projects."/home/parasoft"]
-trust_level = "trusted"
-
-[projects."/home/parasoft/actions-runner/_work/agenticsa/agenticsa"]
-trust_level = "trusted"
-
 [mcp_servers.cpptest-std-mcp]
 command = "/opt/parasoft/cpptest/integration/mcp/cpptestmcp"
