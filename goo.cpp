@@ -49,7 +49,7 @@ int processCommand(const char* cmd, const char* arg)
     return -1; 
 }
 
-int processor(char* cmd, char* arg)
+int processor(const char* cmd, const char* arg)
 {
     uint16_t sensor = readSensor();
     int control = computeControl(sensor, 0); 
