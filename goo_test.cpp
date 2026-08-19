@@ -21,5 +21,35 @@ TEST(GooTest, SetMotorSpeedZero) {
   RecordProperty("cpptest_filename", __FILE__);
   RecordProperty("req", "ASA-511");
 
-  EXPECT_EQ(processCommand("SET", "0"), 1);
+  EXPECT_EQ(processCommand("SET", "0"), 0);
+}
+
+TEST(GooTest, TestValueBelowLowThreshold) {
+  RecordProperty("cpptest_filename", __FILE__);
+  RecordProperty("req", "ASA-513");
+
+  EXPECT_EQ(computeControl(50, 10), DEFAULT_VALUE);
+}
+
+TEST(GooTest, TestProcessCommandRead) {
+  RecordProperty("cpptest_filename", __FILE__);
+  RecordProperty("req", "ASA-513");
+
+  SENSOR_DATA = 0;
+  EXPECT_EQ(processCommand("READ", ""), 0);
+}
+
+TEST(GooTest, TestProcessCommandUnknown) {
+  RecordProperty("cpptest_filename", __FILE__);
+  RecordProperty("req", "ASA-513");
+
+  EXPECT_EQ(processCommand("UNKNOWN", ""), -1);
+}
+
+TEST(GooTest, TestProcessor) {
+  RecordProperty("cpptest_filename", __FILE__);
+  RecordProperty("req", "ASA-513");
+
+  SENSOR_DATA = 0;
+  EXPECT_EQ(processor("SET", "50"), 50 + DEFAULT_VALUE);
 }

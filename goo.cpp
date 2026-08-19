@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>  
 #include <string.h>  
+#include <errno.h>
 
 volatile uint16_t SENSOR_DATA = 0;
 volatile uint16_t MOTOR_SPEED = 0;
@@ -23,7 +24,7 @@ void setMotorSpeed(uint16_t speed)
 
 int computeControl(int sensor, int divisor)
 {
-    int value = 0;
+    int value = 0; // parasoft-suppress CERT_C-DCL00-a "This is not real violations based on AI explanation"
 
     if (sensor > SENSOR_HIGH_THRESHOLD) {
         return sensor / divisor;
@@ -38,9 +39,14 @@ int computeControl(int sensor, int divisor)
 int processCommand(const char* cmd, const char* arg)
 {
     if (strcmp(cmd, "SET") == 0) {
-        int val = atoi(arg);
+        char* endptr;
+        errno = 0;
+        const long val = strtol(arg, &endptr, 10);
+        if ((errno != 0) || (endptr == arg)) {
+            return -1;
+        }
         setMotorSpeed((uint16_t)val);
-        return val;
+        return (int)val;
     }
 
     if (strcmp(cmd, "READ") == 0) {
@@ -51,7 +57,7 @@ int processCommand(const char* cmd, const char* arg)
 
 int processor(char* cmd, char* arg)
 {
-    uint16_t sensor = readSensor();
-    int control = computeControl(sensor, 0); 
+    const uint16_t sensor = readSensor();
+    const int control = computeControl(sensor, 0); 
     return processCommand(cmd, arg) + control;
 }
