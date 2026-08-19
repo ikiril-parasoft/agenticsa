@@ -28,6 +28,12 @@
             "group": "build"
         },
         {
+            "label": "Generate Compliance Report",
+            "type": "shell",
+            "command": "bash -c 'mkdir -p /workspaces/agenticsa/compliance-evidence/coverage && /opt/parasoft/cpptest-ct/bin/cpptestcov report html -out /workspaces/agenticsa/compliance-evidence/coverage/index.html -coverage LC,MCDC -code /workspaces/agenticsa/.coverage'",
+            "group": "build"
+        },
+        {
             "type": "cmake",
             "label": "CMake: configure",
             "command": "configure",
