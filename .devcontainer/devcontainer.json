@@ -1,13 +1,25 @@
 {
     "image": "cpptest_image",
     "runArgs": [ "--rm" ],
+//    "features": {
+//        "ghcr.io/devcontainers/features/common-utils:2": {
+//            "username": "parasoft",
+//            "userUid": "automatic",
+//            "userGid": "automatic",
+//            "installZsh": false,
+//            "upgradePackages": false
+//        },
+//    },
     "customizations": {
         "vscode": {
             "extensions": [
                 "parasoft.vscode-cpptest",
                 "ms-vscode.cpptools",
                 "ms-vscode.cmake-tools"
-            ]
+            ],
+            "settings": {
+                "chat.agent.sandbox.enabled": "off"
+            }
         }
     }
 }
