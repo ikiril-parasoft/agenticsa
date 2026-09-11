@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>  
 #include <string.h>  
+#include <errno.h>
 
 volatile uint16_t SENSOR_DATA = 0;
 volatile uint16_t MOTOR_SPEED = 0;
@@ -23,8 +24,6 @@ void setMotorSpeed(uint16_t speed)
 
 int computeControl(int sensor, int divisor)
 {
-    int value = 0;
-
     if (sensor > SENSOR_HIGH_THRESHOLD) {
         return sensor / divisor;
     } else if (sensor > SENSOR_LOW_THRESHOLD) {
@@ -32,15 +31,25 @@ int computeControl(int sensor, int divisor)
     } else {
         return DEFAULT_VALUE;
     }
-    return value;
 }
 
 int processCommand(const char* cmd, const char* arg)
 {
     if (strcmp(cmd, "SET") == 0) {
-        int val = atoi(arg);
-        setMotorSpeed((uint16_t)val);
-        return val;
+        if (arg == NULL) {
+            return -1;
+        }
+
+        char* endPtr = NULL;
+        errno = 0;
+        const long parsed = strtol(arg, &endPtr, 10);
+        if ((errno != 0) || (endPtr == arg) || (*endPtr != '\0') || (parsed < 0) || (parsed > UINT16_MAX)) {
+            return -1;
+        }
+
+        const uint16_t speed = (uint16_t)parsed;
+        setMotorSpeed(speed);
+        return (int)speed;
     }
 
     if (strcmp(cmd, "READ") == 0) {
@@ -51,7 +60,7 @@ int processCommand(const char* cmd, const char* arg)
 
 int processor(const char* cmd, const char* arg)
 {
-    uint16_t sensor = readSensor();
-    int control = computeControl(sensor, 0); 
+    const uint16_t sensor = readSensor();
+    const int control = computeControl(sensor, 0); 
     return processCommand(cmd, arg) + control;
 }
