@@ -1,6 +1,7 @@
 {
     "image": "cpptest_image",
     "runArgs": [ "--rm" ],
+    "postCreateCommand": "git config --global --add safe.directory /workspaces/agenticsa",
 //    "features": {
 //        "ghcr.io/devcontainers/features/common-utils:2": {
 //            "username": "parasoft",
