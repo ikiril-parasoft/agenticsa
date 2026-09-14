@@ -2,7 +2,7 @@
 #include <stdlib.h>  
 #include <string.h>  
 
-static int parseU16(const char* text, uint16_t* out)
+static int parseU16(const char* const text, uint16_t* const out)
 {
     char* endptr = NULL;
     long parsed = 0L;
@@ -40,12 +40,12 @@ uint16_t readSensor()
     return SENSOR_DATA; 
 }
 
-void setMotorSpeed(uint16_t speed)
+void setMotorSpeed(const uint16_t speed)
 {
     MOTOR_SPEED = speed;
 }
 
-int computeControl(int sensor, int divisor)
+int computeControl(const int sensor, const int divisor)
 {
     if (sensor > SENSOR_HIGH_THRESHOLD) {
         if (divisor == 0) {
@@ -59,7 +59,7 @@ int computeControl(int sensor, int divisor)
     }
 }
 
-int processCommand(const char* cmd, const char* arg)
+int processCommand(const char* const cmd, const char* const arg)
 {
     if (strcmp(cmd, "SET") == 0) {
         uint16_t parsedValue = 0U;
@@ -78,7 +78,7 @@ int processCommand(const char* cmd, const char* arg)
     return -1; 
 }
 
-int processor(const char* cmd, const char* arg)
+int processor(const char* const cmd, const char* const arg)
 {
     const uint16_t sensor = readSensor();
     const int control = computeControl(sensor, 0); 
