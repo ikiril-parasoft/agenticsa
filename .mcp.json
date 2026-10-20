@@ -1,0 +1,20 @@
+{
+	"mcpServers": {
+		"soavirt-mcp-server": {
+			"url": "http://host.docker.internal:9080/soavirt/mcp",
+			"type": "http"
+		},
+		"cpptest-mcp": {
+			"type": "stdio",
+			"command": "/opt/parasoft/cpptest-ct/cpptestct",
+			"args": [
+				"mcp"
+			]
+		},
+		"cpptest-sa-mcp": {
+			"type": "stdio",
+			"command": "/opt/parasoft/cpptest/integration/mcp/cpptestmcp",
+			"args": []
+		}
+	}
+}

@@ -22,3 +22,9 @@ usage: cpptestcov report html [-h] [-out REPORT_FILE] [-coverage LC,SC,...] [-sc
                               [--coverage-low L] [--coverage-high H]
                               coverage_dir
 "
+
+## Instructions for Virtualize virtual asset creation
+
+1. When creating or validating virtual assets with Virtualize and an HTTP/URL call is required, use the soavirt MCP tool `soavirt-mcp-server-makeHTTPRequest`.
+2. Do not use `curl` or python scripts for URL calls in Virtualize-related workflows.
+3. If headers, payload, or method are needed, provide them through `soavirt-mcp-server-makeHTTPRequest` parameters (`method`, `url`, `headers`, `payload`) instead of shell commands.
